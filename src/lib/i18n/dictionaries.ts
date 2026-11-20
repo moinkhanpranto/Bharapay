@@ -42,6 +42,7 @@ const en = {
   auth: {
     welcome: 'Welcome to BharaPay',
     subtitle: 'Sign in with Google or get a 6-digit code by email.',
+    subtitleEmailOnly: 'Enter your email and we will send you a 6-digit code.',
     google: 'Continue with Google',
     or: 'or',
     email: 'Email address',
@@ -260,6 +261,7 @@ const bn: DeepStringRecord<Dictionary> = {
   auth: {
     welcome: 'ভাড়াপে-তে স্বাগতম',
     subtitle: 'Google দিয়ে লগইন করুন অথবা ইমেইলে ৬ সংখ্যার কোড নিন।',
+    subtitleEmailOnly: 'আপনার ইমেইল দিন, আমরা ৬ সংখ্যার একটি কোড পাঠাব।',
     google: 'Google দিয়ে চালিয়ে যান',
     or: 'অথবা',
     email: 'ইমেইল ঠিকানা',

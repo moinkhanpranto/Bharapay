@@ -3,6 +3,7 @@
 import { cookies, headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 import type { ActionState } from '@/lib/actions/result'
+import { getEnabledProviders } from '@/lib/auth/providers'
 import { publicEnv } from '@/lib/env'
 import { getT } from '@/lib/i18n/server'
 import { createClient } from '@/lib/supabase/server'
@@ -31,6 +32,9 @@ async function siteOrigin() {
 
 export async function signInWithGoogle(formData: FormData) {
   const next = safeNextPath(formData.get('next')?.toString())
+  // Never send users to Supabase's raw "provider is not enabled" error page.
+  if (!(await getEnabledProviders()).google) redirect('/login?error=google')
+
   const supabase = await createClient()
   const callback = new URL('/auth/callback', await siteOrigin())
   callback.searchParams.set('next', next)
