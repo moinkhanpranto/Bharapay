@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { LanguageSwitch } from '@/components/layout/language-switch'
-import { LogoMark, ShieldIcon } from '@/components/ui/icons'
+import { Logo } from '@/components/brand/logo'
+import { ShieldIcon } from '@/components/ui/icons'
 import { getLocale, getT } from '@/lib/i18n/server'
 
 /** Centered card layout shared by /login and /login/verify. */
@@ -9,8 +10,8 @@ export default async function AuthLayout({ children }: { children: React.ReactNo
   return (
     <main className="flex min-h-dvh flex-col px-5 py-6">
       <header className="mx-auto flex w-full max-w-md items-center justify-between">
-        <Link href="/" className="flex items-center gap-2.5 text-xl font-bold">
-          <LogoMark /> {t.app.name}
+        <Link href="/" aria-label="BharaPay">
+          <Logo height={32} />
         </Link>
         <LanguageSwitch locale={locale} />
       </header>

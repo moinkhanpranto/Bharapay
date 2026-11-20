@@ -1,7 +1,8 @@
 import { redirect } from 'next/navigation'
 import { LanguageSwitch } from '@/components/layout/language-switch'
 import { LinkButton } from '@/components/ui/button'
-import { LogoMark, ShieldIcon } from '@/components/ui/icons'
+import { Logo } from '@/components/brand/logo'
+import { ShieldIcon } from '@/components/ui/icons'
 import { getCurrentUser } from '@/lib/auth/session'
 import { getLocale, getT } from '@/lib/i18n/server'
 
@@ -12,9 +13,7 @@ export default async function LandingPage() {
   return (
     <main className="mx-auto flex min-h-dvh max-w-5xl flex-col px-5 py-6">
       <header className="flex items-center justify-between">
-        <span className="flex items-center gap-2.5 text-xl font-bold">
-          <LogoMark /> {t.app.name}
-        </span>
+        <Logo height={34} />
         <LanguageSwitch locale={locale} />
       </header>
 

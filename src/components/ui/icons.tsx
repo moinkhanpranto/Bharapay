@@ -49,10 +49,3 @@ export const GoogleIcon = (p: SVGProps<SVGSVGElement>) => (
     <path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z" />
   </svg>
 )
-export const LogoMark = (p: SVGProps<SVGSVGElement>) => (
-  <svg width={32} height={32} viewBox="0 0 32 32" aria-hidden {...p}>
-    <rect width="32" height="32" rx="9" fill="#068FFF" />
-    <path d="M8 15.5 16 9l8 6.5V24a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1z" fill="#fff" />
-    <path d="m12.5 18.5 2.5 2.5 4.5-4.5" stroke="#068FFF" strokeWidth="2.2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-)

@@ -6,7 +6,7 @@
  * - NEVER caches API calls, auth, payment routes or Supabase responses,
  *   so private money data is never stored on the device by the SW.
  */
-const VERSION = 'bp-v1'
+const VERSION = 'bp-v2'
 const STATIC_CACHE = `${VERSION}-static`
 const PRECACHE = ['/offline', '/icons/icon-192.png', '/icons/icon-512.png']
 

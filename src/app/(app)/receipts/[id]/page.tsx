@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { BackLink } from '@/components/layout/back-link'
-import { LogoMark } from '@/components/ui/icons'
+import { Logo } from '@/components/brand/logo'
 import { Pill } from '@/components/ui/status-badge'
 import { getReceipt } from '@/features/payments/queries'
 import { requireOnboardedUser } from '@/lib/auth/session'
@@ -33,8 +33,8 @@ export default async function ReceiptPage({ params }: PageProps<'/receipts/[id]'
     <div className="mx-auto max-w-md">
       {r.bills && <BackLink href={`/bills/${r.bills.id}`} label={t.common.back} />}
       <article className="rounded-[var(--radius-card)] border border-line bg-surface p-6 print:border-0">
-        <header className="flex items-center gap-2.5 border-b border-line pb-4 text-lg font-bold">
-          <LogoMark /> {t.app.name}
+        <header className="border-b border-line pb-4">
+          <Logo height={28} />
         </header>
         <p className="mt-5 text-center text-sm font-semibold tracking-widest text-ink-muted uppercase">{t.payments.receipt}</p>
         <p className={`mt-1 text-center text-4xl font-bold ${r.voided_at ? 'line-through opacity-60' : ''}`}>{formatTaka(r.amount, locale)}</p>

@@ -3,7 +3,8 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import type { ReactNode } from 'react'
-import { BuildingIcon, HomeIcon, LogoMark, ReceiptIcon, UserIcon, UsersIcon } from '@/components/ui/icons'
+import { Logo } from '@/components/brand/logo'
+import { BuildingIcon, HomeIcon, ReceiptIcon, UserIcon, UsersIcon } from '@/components/ui/icons'
 import { useI18n } from '@/lib/i18n/client'
 import { cn } from '@/lib/utils/cn'
 
@@ -41,8 +42,8 @@ export function AppShell({ role, name, children }: { role: Role; name: string; c
   return (
     <div className="min-h-dvh lg:flex">
       <aside className="no-print hidden w-64 shrink-0 flex-col border-r border-line bg-surface p-5 lg:flex">
-        <Link href="/dashboard" className="mb-8 flex items-center gap-2.5 text-xl font-bold">
-          <LogoMark /> {t.app.name}
+        <Link href="/dashboard" className="mb-8" aria-label="BharaPay">
+          <Logo height={30} />
         </Link>
         <nav className="flex flex-col gap-1" aria-label="Main">
           {items.map(({ href, label, Icon }) => (
