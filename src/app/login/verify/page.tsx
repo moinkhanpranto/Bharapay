@@ -16,6 +16,7 @@ export default async function VerifyPage() {
       <div>
         <h1 className="text-3xl font-bold tracking-tight">{t.auth.checkEmail}</h1>
         <p className="mt-1 text-ink-muted">{format(t.auth.codeSentTo, { email: maskedEmail })}</p>
+        <p className="mt-3 rounded-2xl bg-brand-soft px-4 py-3 text-sm text-brand-strong">{t.auth.orUseLink}</p>
       </div>
       <VerifyForm />
     </div>

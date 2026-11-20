@@ -15,7 +15,7 @@ export default async function LoginPage({ searchParams }: PageProps<'/login'>) {
       </div>
       {error && (
         <p role="alert" className="rounded-2xl bg-danger-soft px-4 py-3 text-sm text-danger">
-          {t.auth.callbackError}
+          {error === 'link' ? t.auth.linkError : t.auth.callbackError}
         </p>
       )}
       <LoginForm next={typeof next === 'string' ? next : undefined} googleEnabled={providers.google} />

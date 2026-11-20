@@ -30,6 +30,13 @@ async function siteOrigin() {
   return host ? `${proto}://${host}` : publicEnv.NEXT_PUBLIC_SITE_URL
 }
 
+/** Where the sign-in link in the email sends the user (also works if the template only has a link). */
+async function emailLinkTarget(next: string) {
+  const url = new URL('/auth/callback', await siteOrigin())
+  url.searchParams.set('next', next)
+  return url.toString()
+}
+
 export async function signInWithGoogle(formData: FormData) {
   const next = safeNextPath(formData.get('next')?.toString())
   // Never send users to Supabase's raw "provider is not enabled" error page.
@@ -52,10 +59,11 @@ export async function sendEmailOtp(_prev: ActionState, formData: FormData): Prom
   const parsed = emailSchema.safeParse({ email: formData.get('email') })
   if (!parsed.success) return { ok: false, fieldErrors: { email: t.auth.invalidEmail } }
 
+  const next = safeNextPath(formData.get('next')?.toString())
   const supabase = await createClient()
   const { error } = await supabase.auth.signInWithOtp({
     email: parsed.data.email,
-    options: { shouldCreateUser: true },
+    options: { shouldCreateUser: true, emailRedirectTo: await emailLinkTarget(next) },
   })
   if (error) {
     return { ok: false, error: error.status === 429 ? t.auth.tooMany : t.common.somethingWrong }
@@ -63,7 +71,7 @@ export async function sendEmailOtp(_prev: ActionState, formData: FormData): Prom
 
   const jar = await cookies()
   jar.set(OTP_EMAIL_COOKIE, parsed.data.email, cookieOptions)
-  jar.set(NEXT_COOKIE, safeNextPath(formData.get('next')?.toString()), cookieOptions)
+  jar.set(NEXT_COOKIE, next, cookieOptions)
   redirect('/login/verify')
 }
 
@@ -101,10 +109,14 @@ export async function getPendingOtpEmail() {
 
 export async function resendEmailOtp(): Promise<ActionState> {
   const t = await getT()
-  const email = (await cookies()).get(OTP_EMAIL_COOKIE)?.value
+  const jar = await cookies()
+  const email = jar.get(OTP_EMAIL_COOKIE)?.value
   if (!email) redirect('/login')
   const supabase = await createClient()
-  const { error } = await supabase.auth.signInWithOtp({ email, options: { shouldCreateUser: true } })
+  const { error } = await supabase.auth.signInWithOtp({
+    email,
+    options: { shouldCreateUser: true, emailRedirectTo: await emailLinkTarget(safeNextPath(jar.get(NEXT_COOKIE)?.value)) },
+  })
   if (error) return { ok: false, error: error.status === 429 ? t.auth.tooMany : t.common.somethingWrong }
   return { ok: true }
 }
